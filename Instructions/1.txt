@@ -1,0 +1,32 @@
+image vs container
+class vs object
+
+Docker Daemon - instancira kontejnere na osnovu image i upravlja njima tokom zivotnog ciklusa
+CLI client - terminal preko koga korisnik upravlja kontejnerima
+Image - izvorni kod za instanciranje kontejnera
+Repository - repozitorijum za cuvanje Docker images npr. javni repozitorijum je hub.docker.com
+Kontejneri - instance image koje izvrsavaju zeljene app i servise
+
+Images
+- fail sistem koji je izolovan
+- info o data volumes za perzistenciju podataka u okviru fajl sistema
+- metainformacije o procesu - koji ce biti podrazumevani proces koji ce raditi po pokretanju i argumenti komadne linije
+- mrezne metainformacije - koji portovi kontejnera su izlozeni i kako se pristupa njima
+
+Kontejneri
+stateless
+
+Docker commands
+
+docker ps
+- daje informacije o aktivnim containers i info o njima: ID, image, status, ports
+
+docker kill containerid
+- unistiti container
+
+docker run -d --name containername run -p externalport:internalport repository/imagename
+- pokretanje kontejnera
+-d - izvrsava se u pozadini npr web server
+-p - mapiranje portova
+
+

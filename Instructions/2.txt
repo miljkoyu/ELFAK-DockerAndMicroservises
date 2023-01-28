@@ -1,0 +1,93 @@
+Kreiranje Docker image i pokretanje kontejnera
+
+1. terminal
+2. novi folder
+3. uci u folder
+4. kreiranje Dockerfile
+	- u nekom text editoru kreiramo Dockerfile, upisemo u isti
+		
+		FROM php:7.2-apache
+		COPY . /var/www/html/
+5. kreirati php skriptu koja ce raditi kao microservis 
+	index.php, upisemo u isti
+	
+	<?php
+
+	if(isset($_GET['ecg']) && isset($_GET['troponin'])){
+		
+		$ecg_value=intval($_GET['ecg']);
+		$troponin_value=intval($_GET['troponin']);
+		
+		$outcome=$ecg_value*$troponin_value;
+		
+		echo $outcome;
+		
+	}else{
+		
+	}
+
+	?>
+	
+6. kreiranje image
+	docker build -t my-php-app .
+7. pokretanje kontejnera
+	docker run -d -p 80:80 --name my-running-app my-php-app
+8. pristupimo kontejneru
+	http://192.168.99.100/?ecg=1&troponin=1
+	
+
+
+Drugi primer
+promenjena je php skripta za mikroservis
+
+
+<?php
+
+if(isset($_GET['ckid'])) {
+	
+	$outcome=rand(0,100);
+	
+	if($outcome>50){
+		echo "OK";
+	}else{
+		echo "NOT VALID";
+	}
+		
+}else{
+	echo "Kupac id not set";
+}
+
+?>
+
+
+
+
+pristup
+	http://localhost:81/?ckid=1
+	
+koriscenje u javi na slici 3.php
+
+Arhitektura
+UML dijagram
+sema db
+
+
+
+
+Treci primer
+
+sve isto kao pre
+ali sad postoje i dependensije
+za instalaciju node pakege sluzi package.json fajl
+kod serisa je napravljen u node.js skripti
+def su konstante, interno je 8080, inicijalizacija express skripte
+pasuje se kupac id pa se dalje ide kroz if
+poziv nad app je app.listen....
+
+build image ide standardno
+	docker build -t my-php-app3 .
+pokretanje ide da expouzujemo 8080 port
+
+docker run -d -p 82:8080 --name dockerNodeJS my-php-app3
+
+
